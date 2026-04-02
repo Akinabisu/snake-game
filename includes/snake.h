@@ -9,7 +9,6 @@ class Snake
 private:
     Field* _field;
     std::vector<Coords> _snake_coords;
-    Coords _head_coords;
 
 public:
     Snake(const Field &f);

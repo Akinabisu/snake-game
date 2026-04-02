@@ -1,14 +1,17 @@
 #include "..\includes\field.h"
 
-Field::Field(size_t h, size_t w) {
-	_field = new char*[h];
-
-	for (int i = 0; i < h; ++i) {
-		_field[i] = new char[w];
-		for (int j = 0; j < w; ++j)
-			_field[i][j] = '.';
-	}
+Field::Field(size_t h, size_t w)
+{
+	_height = h;
+	_width = w;
 }
+
+Field::Field(const Field& f)
+{
+	_height = f._height;
+	_width = f._width;
+}
+
 size_t Field::height() const
 {
 	return _height;

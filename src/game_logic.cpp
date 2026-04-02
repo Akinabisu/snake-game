@@ -5,23 +5,29 @@
 #include "..\includes\keyboard_controller.h"
 #include <thread>
 #include <iostream>
-
+#include <cstdlib>
 
 void GameLogic::game() {
 	size_t h, w;
 	std::cout << "Enter field height and width: ";
 	std::cin >> h >> w;
 
-	Field _field = Field(h, w);
-	Snake _snake = Snake(_field);
-	KeyboardController _keyboard_controller;
+	Field field = Field(h, w);
+	Snake snake = Snake(field);
+	KeyboardController keyboard_controller;
 
-	std::thread listener([&_keyboard_controller]() {
-		_keyboard_controller.key_listener(); });
+	std::thread listener([&keyboard_controller]() {
+		keyboard_controller.key_listener(); });
 
-	//print_field
-
+	while (true) {
+		snake.print_snake();
+		snake.move_snake(keyboard_controller.current_direction());
+		std::this_thread::sleep_for(std::chrono::milliseconds(500));
+		system("cls");
+	}
 
 	if (listener.joinable())
 		listener.join();
+
+	return;
 };
